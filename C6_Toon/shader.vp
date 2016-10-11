@@ -1,0 +1,33 @@
+#version 130
+
+in vec4 vVertex;
+in vec3 vNormal;
+in vec4 vTexture0;
+
+
+uniform mat4 MVP;
+uniform mat4 MV;
+uniform mat3 Normalmatrix;
+
+uniform sampler2D textureSampler;
+
+out vec2 uvCoor;
+smooth out vec3 Normal;
+smooth out vec3 LightDir;
+smooth out vec3 pos;
+
+
+void main()
+{
+    vec4 LightPos = vec4(-100.0f, 100.0f, 100.0f, 1.0f);
+   // vec4 LightModelPos = MV*LightPos;
+    Normal = Normalmatrix*vNormal;
+    vec4 pos4 = MV*vVertex;
+    pos = pos4.xyz / pos4.w;
+
+    LightDir = LightPos.xyz - pos ;
+    //LightDir = vec3(1.0f, 0.0f, 0.0f);
+    uvCoor = vTexture0.st;
+    gl_Position = MVP * vVertex;
+
+}

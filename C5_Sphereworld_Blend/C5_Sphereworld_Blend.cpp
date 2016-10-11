@@ -34,7 +34,7 @@ bool bFillMode = true;
 bool bLineMode = false;
 bool bPointMode = false;
 
-const GLfloat fTexSize = 100.0f;
+const GLfloat fTexSize = 10.0f;
 GLuint uiTexture[3];
 
 bool LoadTGATexture(const char *szFileName, GLenum minFilter, GLenum magFilter, GLenum wrapMode)
@@ -157,7 +157,7 @@ void SetupRC()
     glGenTextures(3, uiTexture);
    
     glBindTexture(GL_TEXTURE_2D, uiTexture[0]);
-    if(!LoadTGATexture("Marbel.tga", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_REPEAT)) 
+    if(!LoadTGATexture("Marble.tga", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_REPEAT)) 
     {
         std::cout<<"fail to load floor texture"<<std::endl;
     };
@@ -169,7 +169,7 @@ void SetupRC()
     };
 
     glBindTexture(GL_TEXTURE_2D, uiTexture[2]);
-    if(!LoadTGATexture("Moonlike.tga", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE))
+    if(!LoadTGATexture("MoonLike.tga", GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE))
     {
         std::cout<<"fail to load sphere texture"<<std::endl;
     };
@@ -217,7 +217,7 @@ void RenderScene()
 
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      glBindTexture(GL_TEXTURE_2D, uiTexture[1]);
+      glBindTexture(GL_TEXTURE_2D, uiTexture[0]);
       shaderManager.UseStockShader(GLT_SHADER_TEXTURE_MODULATE, transformPipeline.GetModelViewProjectionMatrix(), vFloorColor, 0);
       floorBatch.Draw();
       glDisable(GL_BLEND);
@@ -238,7 +238,7 @@ void RenderScene()
         modelViewMatrix.Translate(2.0f, 0.0f, 0.0f);
 //      shaderManager.UseStockShader(GLT_SHADER_FLAT, transformPipeline.GetModelViewProjectionMatrix(), vSphereColor);
 //      shaderManager.UseStockShader(GLT_SHADER_POINT_LIGHT_DIFF, transformPipeline.GetModelViewMatrix(), transformPipeline.GetProjectionMatrix(), vLightEyePos, vSphereColor);
-        glBindTexture(GL_TEXTURE_2D, uiTexture[1]);
+        glBindTexture(GL_TEXTURE_2D, uiTexture[2]);
 //      shaderManager.UseStockShader(GLT_SHADER_TEXTURE_MODULATE, transformPipeline.GetModelViewProjectionMatrix(), vFloorColor, 0);
         shaderManager.UseStockShader(GLT_SHADER_TEXTURE_POINT_LIGHT_DIFF, transformPipeline.GetModelViewMatrix(), transformPipeline.GetProjectionMatrix(), vLightEyePos, vFloorColor, 0);
         sphereBatch.Draw();
